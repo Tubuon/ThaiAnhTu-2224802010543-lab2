@@ -35,7 +35,7 @@ class _BasicGrid extends StatelessWidget {
       case 'CE': calc.clearEntry(); break;
       case '⌫': calc.backspace(); break;
       case '%': calc.percent(); break;
-      case '÷': case '×': case '-': case '+':git status
+      case '÷': case '×': case '-': case '+':
       calc.inputOperator(btn); break;
       case '=':
         final r = calc.evaluate();
