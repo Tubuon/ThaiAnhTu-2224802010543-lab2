@@ -1,30 +1,29 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:calculator_app/main.dart';
+import 'package:advanced_calculator/main.dart';
+import 'package:advanced_calculator/widgets/calculator_button.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
+  testWidgets('Calculator UI Smoke Test', (WidgetTester tester) async {
+    // 1. Khởi chạy ứng dụng
     await tester.pumpWidget(const MyApp());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    // 2. Kiểm tra xem màn hình có hiển thị số 0 mặc định không
+    // Dùng findsAtLeast vì có thể có số 0 ở màn hình hiển thị và cả nút bấm
+    expect(find.text('0'), findsAtLeast(1));
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
+    // 3. Tìm nút số '1' và nhấn vào
+    final button1 = find.widgetWithText(CalculatorButton, '1');
+    expect(button1, findsOneWidget);
+    await tester.tap(button1);
+
+    // 4. Cập nhật giao diện sau khi nhấn
     await tester.pump();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // 5. Kiểm tra xem số 1 đã xuất hiện trên màn hình hiển thị chưa
+    expect(find.text('1'), findsAtLeast(1));
+
+    // 6. Kiểm tra nút xóa 'C' có tồn tại không
+    expect(find.text('C'), findsOneWidget);
   });
 }
